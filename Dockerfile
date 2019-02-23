@@ -1,4 +1,4 @@
-FROM ruby:2.5.0
+FROM ruby:2.5.1
 
 # add nodejs and yarn dependencies for the frontend
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
