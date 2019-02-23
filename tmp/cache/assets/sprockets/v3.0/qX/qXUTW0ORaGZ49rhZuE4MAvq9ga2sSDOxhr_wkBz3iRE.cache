@@ -1,0 +1,44 @@
+I"(function() {
+  $(document).ready(function() {
+    $('.setas-switch').click(function() {
+      var source_currency, target_currency;
+      source_currency = $('#source_currency').val();
+      target_currency = $('#target_currency').val();
+      $('#source_currency').val(target_currency);
+      $('#target_currency').val(source_currency);
+      return $('form').submit();
+    });
+    $('#quantity').keyup(function() {
+      if ($('#quatity').val().length > 0) {
+        return $('form').submit();
+      }
+    });
+    $('#quantity').mouseup(function() {
+      if ($('#quatity').val().length > 0) {
+        return $('form').submit();
+      }
+    });
+    return $('form').submit(function() {
+      if ($('form').attr('action') === '/convert') {
+        $.ajax('/convert', {
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            source_currency: $("#source_currency").val(),
+            target_currency: $("#target_currency").val(),
+            amount: $("#amount").val()
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            return alert(textStatus);
+          },
+          success: function(data, text, jqXHR) {
+            return $('#result').val(data.value);
+          }
+        });
+        return false;
+      }
+    });
+  });
+
+}).call(this);
+:ET
